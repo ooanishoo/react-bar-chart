@@ -19,7 +19,7 @@ const App = (): ReactElement => {
       <BarChartContainer
         data={mockData2}
         dimension={{
-          width: 700,
+          width: 200,
           height: 500
         }}
       />

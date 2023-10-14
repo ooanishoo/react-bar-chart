@@ -275,7 +275,8 @@ const handleMouseUp = () => {
 
 ### Caveats and Limitations
 
-Currently if you set the dimension of the bar chart to be less than the MULTIPILER value or the frequency value in the data is very high than the bar chart dimension, the bar chart will not be rendered properly causing the bars to go beyond the dimension of the bar chart.
+- If you set height of the bar chart less than the `MULTIPILER` value or the frequency of the bars is greateer than the bar chart's height, the bar chart will not be rendered properly.This will cause the bars to go beyond the height of the bar chart.
+- If the bar chart's width is very small compared to the number of bars, the bars will be rendered very close to each other and in some cases, the bars will go beyond the width of the bar chart.
 
 ### Future Improvements
 
@@ -284,6 +285,7 @@ Currently if you set the dimension of the bar chart to be less than the MULTIPIL
 - [ ] Allow user to set the MULTIPLIER value from the UI
 - [ ] Allow user to set different colors for each bar
 - [ ] Add support for labels on the x-axis
+- [ ] Make the bar chart responsive on different screen sizes
 
 ### Tech Stack
 
