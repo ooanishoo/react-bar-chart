@@ -1,5 +1,7 @@
 # React Bar Chart 📊
 
+![](public/barchart-demo.png)
+
 ### Table of Contents
 
 - [Introduction](#introduction)
