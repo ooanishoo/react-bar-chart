@@ -4,7 +4,6 @@ import {
   StyledCanvas,
   StyledDiv,
   StyledForm,
-  StyledGridLines,
   StyledInput,
   StyledWrapper
 } from '@/components/styles'
@@ -15,7 +14,8 @@ import {
   convertToFrequency,
   findMaxFrequency
 } from '@/utils'
-import { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
+import { GridLines } from '@/components/GridLines'
 
 const BarChart = (): ReactElement => {
   const {
@@ -29,11 +29,7 @@ const BarChart = (): ReactElement => {
   } = useBarChart()
 
   const { width: barChartWidth, height: barChartHeight } = dimension
-  const [minYaxis, setMinYaxis] = useState<number>(maxYaxis)
-
-  useEffect(() => {
-    setMinYaxis(findMaxFrequency(data))
-  }, [minYaxis, data])
+  const minYaxis = findMaxFrequency(data)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -63,13 +59,10 @@ const BarChart = (): ReactElement => {
     setIsBarChartReadyOnly(e.target.checked)
   }
 
-  const grideLines = calculateGridLines(barChartHeight, MULTIPLIER)
-
-  const renderGridLines = Array(grideLines)
-    .fill('')
-    .map((_, index) => (
-      <StyledGridLines key={index} count={index + 1}></StyledGridLines>
-    ))
+  const grideLines = useMemo(
+    () => calculateGridLines(barChartHeight, MULTIPLIER),
+    [barChartHeight]
+  )
 
   const renderBars = data.map(item => (
     <Bar
@@ -112,7 +105,7 @@ const BarChart = (): ReactElement => {
         </div>
       </StyledDiv>
       <StyledCanvas width={barChartWidth} height={barChartHeight}>
-        {renderGridLines}
+        <GridLines grideLines={grideLines} />
         {renderBars}
       </StyledCanvas>
     </StyledWrapper>
