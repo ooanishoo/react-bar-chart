@@ -28,13 +28,15 @@ export const Bar = ({ frequency, onResize }: IBarProps): ReactElement => {
     let yCord = 0
 
     const handleMouseMove = (e: MouseEvent) => {
-      const deltaY = e.clientY - yCord
-      height = height - deltaY
+      const currentYCord = e.clientY
+
+      const deltaY = yCord - currentYCord
+      height = height + deltaY
 
       yCord = e.clientY
 
-      if (height < 0) height = 0
       if (height > barChartHeight) height = barChartHeight
+
       if (height > maxFrequency) height = maxFrequency
 
       barElement.style.height = `${height}px`
@@ -68,9 +70,9 @@ export const Bar = ({ frequency, onResize }: IBarProps): ReactElement => {
     return () => {
       btn.removeEventListener('mousedown', handleMouseDown)
     }
-  })
+  }, [barChartHeight, isBarChartReadyOnly, maxFrequency, onResize])
 
-  const barHeight = `${frequency * MULTIPLIER}px`
+  const barHeight = frequency < 0 ? `0px` : `${frequency * MULTIPLIER}px`
 
   return (
     <StyledBar ref={barRef} height={barHeight}>
