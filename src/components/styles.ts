@@ -84,8 +84,16 @@ export const StyledDiv = styled.div`
   justify-content: space-between;
 `
 
+const calcWidth = (count: number) => {
+  if (count % 5 === 0) {
+    return 'calc(100% + 10px)' // display horizontal grid lines on every 5th line
+  } else {
+    return '10px'
+  }
+}
+
 export const StyledGridLines = styled.div<{ count: number }>`
-  width: ${({ count }) => (count % 5 === 0 ? 'calc(100% + 10px)' : '10px')};
+  width: ${({ count }) => calcWidth(count)};
   height: 1px;
   background-color: slategray;
   position: absolute;
